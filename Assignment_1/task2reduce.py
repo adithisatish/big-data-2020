@@ -1,4 +1,4 @@
-#Task 1 Reducer
+#!/usr/bin/python3
 
 import sys
 
