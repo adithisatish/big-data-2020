@@ -44,7 +44,7 @@ for line in sys.stdin:
         rec = None
         count = 1
         date = datetime.datetime.strptime(line['timestamp'],'%Y-%m-%d %H:%M:%S.%f %Z')
-        day = date.today().weekday() #Returns an integer representing the day (o: Monday, 6: Sunday)
+        day = date.weekday() #Returns an integer representing the day (o: Monday, 6: Sunday)
         
         if line['recognized']==True:
             rec = "recognized"
