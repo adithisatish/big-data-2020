@@ -1,4 +1,4 @@
-#Task 1 Reducer
+#!/usr/bin/python3
 
 import sys
 
@@ -8,7 +8,10 @@ rec = None
 
 for line in sys.stdin:
     line = line.strip()
-    rec,count = line.split("\t",1)
+    try:
+    	rec,count = line.split("\t",1)
+    except ValueError:
+    	print(line)
     try:
         count = int(count)
     except ValueError:
