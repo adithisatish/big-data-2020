@@ -10,7 +10,7 @@ search_word = sys.argv[1] #Accepts the word to be searched from the user
 def bad_record(record): #Checking if the record satisfies predetermined conditions
     
     for i in line["word"]:
-        if i==" " or ord(i) in [97,122] or ord(i) in [65,90]:
+        if i.isalpha() or i.isspace():
             continue
         else:
             return 0
