@@ -42,10 +42,9 @@ for line in sys.stdin:
     line = line.strip()
     line = json.loads(line)
 
-    if bad_record(line) == 0: #if the record is a bad record, ignore
-        continue
-
     if line["word"]==word:
+        if bad_record(line) == 0: #if the record is a bad record, ignore
+            continue
         stroke1 = line["drawing"][0]
         x = stroke1[0][0]
         y = stroke1[1][0]
