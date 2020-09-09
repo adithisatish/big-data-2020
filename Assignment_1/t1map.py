@@ -35,11 +35,9 @@ for line in sys.stdin:
 	line = line.strip()
 	line = json.loads(line)
 	
-	if bad_record(line) == 0: #if the record is a bad record,ignore
-		continue
-
 	if line['word']==search_word:
-		#print("FOUND\n")
+		if bad_record(line) == 0: #if the record is a bad record,ignore
+			continue
 		rec = None
 		count = 1
 		date = datetime.datetime.strptime(line['timestamp'],'%Y-%m-%d %H:%M:%S.%f %Z')
