@@ -9,7 +9,7 @@ import json
 for line in sys.stdin:
     line = line.strip()
 
-    #Assuming that input file is tab separated and newline delimited
+    #Assuming that input file is space separated and newline delimited
 
     key,value = line.split(" ",1)
 
