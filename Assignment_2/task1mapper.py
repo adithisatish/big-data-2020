@@ -7,6 +7,13 @@ import sys
 import json
 
 for line in sys.stdin:
+    
+    try:
+        key,value = line.split("\t",1)
+        int(key) + 1
+    except ValueError:
+        continue
+        
     line = line.strip()
 
     #Assuming that input file is space separated and newline delimited
