@@ -4,7 +4,8 @@
 #Mapper
 
 import sys
-import subprocess
+import os
+from subprocess import PIPE, Popen
 
 cur_key = None
 
@@ -32,6 +33,16 @@ for line in sys.stdin:
         cur_key = key
         values = [value]
         #values.append(value)# = rec
+
+
+#Storing file in HDFS: Add the path to the local output file of the adjaceny list
+
+fileName = "" #Name of output file
+adjListOutputPath = "" #Path to local copy
+adjListHDFSPath = os.path.join(os.path.sep, 'user', '<your-user-name>', fileName)
+
+put = Popen(["hadoop", "fs", "-put", fileName, adjListHDFSPath], stdin=PIPE, bufsize=-1)
+put.communicate()
 
 #Calculating V0:
 
