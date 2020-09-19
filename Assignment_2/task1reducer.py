@@ -7,8 +7,6 @@ import sys
 import subprocess
 
 cur_key = None
-#cur_count = 0
-count = 0
 
 keys = []
 values = []
@@ -27,9 +25,9 @@ for line in sys.stdin:
         values.append(value)
     else:
         keys.append(key)
-        count+=1
+        
         if cur_key:
-            print(cur_key,values,sep = "\t") #Not stored in HDFS yet
+            print(cur_key,values,sep = " ") #Not stored in HDFS yet
         
         cur_key = key
         values = [value]
