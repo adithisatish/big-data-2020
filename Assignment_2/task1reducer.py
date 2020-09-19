@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 #Task 1: Creating Sparse Matrix and Initial Vector from Adjacency List
-#Mapper
+#Reducer
 
 import sys
 import os
@@ -36,7 +36,7 @@ for line in sys.stdin:
 
 
 #Storing file in HDFS: Add the path to the local output file of the adjaceny list
-
+#CHECK IF THIS IS CORRECT
 fileName = "" #Name of output file
 adjListOutputPath = "" #Path to local copy
 adjListHDFSPath = os.path.join(os.path.sep, 'user', '<your-user-name>', fileName)
