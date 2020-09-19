@@ -7,12 +7,10 @@ import sys
 import json
 
 for line in sys.stdin:
-	line = line.strip()
-	line = json.loads(line)
+    line = line.strip()
 
-    key = ''
-    value = ''
+    #Assuming that input file is tab separated and newline delimited
 
+    key,value = line.split(" ",1)
 
-    print(key,value, sep = "\t")
-
+    print(key,value,sep = "\t")
