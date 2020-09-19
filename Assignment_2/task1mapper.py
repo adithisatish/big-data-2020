@@ -4,20 +4,29 @@
 #Mapper
 
 import sys
-import json
 
 for line in sys.stdin:
+	if(line[0] == '#'):                             #Need to find a better fix, sorry!
+		continue
+	try:
+		line = line.strip()
+		source, dest = line.split("\t", 1)
+		print(dest, source, sep = "\t")
+	except:
+		continue
+
+# for line in sys.stdin:
     
-    try:
-        key,value = line.split("\t",1)
-        int(key) + 1
-    except ValueError:
-        continue
+#     try:
+#         key,value = line.split("\t",1)
+#         int(key) + 1
+#     except ValueError:
+#         continue
         
-    line = line.strip()
+#     line = line.strip()
 
-    #Assuming that input file is space separated and newline delimited
+#     #Assuming that input file is space separated and newline delimited
 
-    key,value = line.split(" ",1)
+#     key,value = line.split(" ",1)
 
-    print(key,value,sep = "\t")
+#     print(key,value,sep = "\t")
