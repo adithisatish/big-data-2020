@@ -46,5 +46,8 @@ put.communicate()
 
 #Calculating V0:
 
+f = open("vector.txt","a+")
 for i in keys:
-    print(key,1)
+    f.write(str(i) + ":1")
+
+f.close()

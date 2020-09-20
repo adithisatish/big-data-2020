@@ -11,7 +11,7 @@ for line in sys.stdin:
 	try:
 		line = line.strip()
 		source, dest = line.split("\t", 1)
-		print(dest, source, sep = "\t")
+		print(source, dest, sep = "\t")
 	except:
 		continue
 
