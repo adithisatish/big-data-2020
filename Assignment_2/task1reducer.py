@@ -34,7 +34,7 @@ for line in sys.stdin:
         values = [value]
         #values.append(value)# = rec
 
-
+print(cur_key,values,sep = " ")
 #Storing file in HDFS: Add the path to the local output file of the adjaceny list
 #CHECK IF THIS IS CORRECT
 fileName = "" #Name of output file
