@@ -11,9 +11,11 @@ with open('/home/manah/BD/A2/v') as f:
 	initial_page_ranks = f.read()
 ipr = initial_page_ranks.split("\n")
 
+nodes = {}
+
 v = {}
 for i in ipr[:-1]:
-	v[i.split("\t")[0]] = i.split("\t")[1]
+	v[i.split(",")[0]] = i.split(",")[1]
 
 for line in sys.stdin:
 	try:
@@ -25,5 +27,10 @@ for line in sys.stdin:
 	except:
 		continue
 	for d in destination:
-			print(d, contribution, v[source], sep = '\t')
+		print(d, contribution, v[source], sep = '\t')
+		#nodes[source] = True #Implies that this source has outgoing edges
+		nodes[d] = True #Implies that this node has incoming edges
 
+for node in v:
+	if node not in nodes: #Only outgoing edges, no incoming edges => Source => no parent nodes => no contribution by parent 
+		printf(node, 0, "Source",sep = "\t")

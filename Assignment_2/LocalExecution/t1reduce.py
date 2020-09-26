@@ -10,7 +10,7 @@ import os
 from subprocess import Popen, PIPE
 
 curr_key = None
-keys = []
+keys = set()
 values = []
 
 for line in sys.stdin:
@@ -22,8 +22,10 @@ for line in sys.stdin:
 		
 	if curr_key == key:
 		values.append(value)
+		keys.add(value)
+
 	else:
-		keys.append(key)
+		keys.add(key)
 		
 		if curr_key:
 			print(curr_key, values, sep = "\t")
@@ -32,6 +34,9 @@ for line in sys.stdin:
 
 print(curr_key, values, sep = "\t")						# For the last node.
 
+keys.add(curr_key)
+for i in values:
+	keys.add(i)
 
 										# Write the initial page ranks into a local file.
 f = open("/home/manah/BD/A2/v", "w")
