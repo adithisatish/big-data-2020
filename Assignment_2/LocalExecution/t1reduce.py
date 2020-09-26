@@ -36,5 +36,5 @@ print(curr_key, values, sep = "\t")						# For the last node.
 										# Write the initial page ranks into a local file.
 f = open("/home/manah/BD/A2/v", "w")
 for i in keys:
-	f.write(str(i) + "\t" + str(1) + "\n")
+	f.write(str(i) + "," + str(1) + "\n")
 f.close()
