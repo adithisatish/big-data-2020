@@ -10,7 +10,7 @@ import os
 from subprocess import Popen, PIPE
 
 curr_key = None
-keys = set()
+keys = set() #Sets are more convenient to keep track of nodes, checking implicitly done
 values = []
 
 for line in sys.stdin:
