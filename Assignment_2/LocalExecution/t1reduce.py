@@ -10,7 +10,7 @@ import os
 from subprocess import Popen, PIPE
 
 curr_key = None
-keys = set() #Sets are more convenient to keep track of nodes, checking implicitly done
+keys = set()
 values = []
 
 for line in sys.stdin:
@@ -23,23 +23,23 @@ for line in sys.stdin:
 	if curr_key == key:
 		values.append(value)
 		keys.add(value)
-
 	else:
 		keys.add(key)
-		
+		keys.add(value)						# EXTRA
 		if curr_key:
 			print(curr_key, values, sep = "\t")
 		curr_key = key
 		values = [value]
 
 print(curr_key, values, sep = "\t")						# For the last node.
-
+# I don't think the following adds are necessary.
 keys.add(curr_key)
 for i in values:
 	keys.add(i)
 
-										# Write the initial page ranks into a local file.
-f = open("/home/manah/BD/A2/v", "w")
-for i in keys:
+
+fileName = sys.argv[1]										# Write the initial page ranks into a local fi
+f = open(fileName, "w")
+for i in sorted(keys):
 	f.write(str(i) + "," + str(1) + "\n")
 f.close()

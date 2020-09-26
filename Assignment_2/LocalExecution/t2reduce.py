@@ -6,36 +6,60 @@
 import sys
 
 curr_dest = None
-chk = 0 #Flag to check for source nodes 
+chk = 0
 sum_contributions = 0
 new_pageranks = {}
 
 for line in sys.stdin:
 	line = line.strip()
-
 	dest, cont, v = line.split('\t')
-
-	if v== "Source":
-		new_page_rank[dest] = 1 #Since v is a source node with no incoming edges, it's page rank remains the same throughout all iterations
-		chk = 1 #Flag variable to check if node has no incoming edges
+	dest = dest.strip('\'')
+	if dest == curr_dest:
+		sum_contributions += (float(cont)*float(v))
 	else:
+		if curr_dest:
+			page_rank = 0.15 + 0.85*sum_contributions
+			new_pageranks[curr_dest] = page_rank
+		curr_dest = dest
+		sum_contributions = float(cont)*float(v)
+		
+page_rank = 0.15 + 0.85*(sum_contributions)
+new_pageranks[curr_dest] = page_rank
+'''
+for i in range(1):
+	if v == "Source":
+		new_pageranks[dest] = 0.15
+		chk = 1
+	else:
+		chk = 0
 		if dest == curr_dest:
-			if cont==0:
-				sum_contributions = 1 #is it this or sum_cont+=1?
+			if cont == 0:
+				sum_contributions = 1
 			else:
 				sum_contributions += (float(cont) * float(v))
+
 		else:
 			if curr_dest:
 				page_rank = 0.15 + 0.85*(sum_contributions)
 				new_pageranks[curr_dest] = page_rank
 			curr_dest = dest
 			sum_contributions = float(cont)*float(v)
+'''
 
-if chk !=1:		
+'''
+if chk != 1:		
 	page_rank = 0.15 + 0.85*(sum_contributions)
 	new_pageranks[curr_dest] = page_rank
 
-# Write new page ranks to a file v1 --> Locally or Hdfs?	
+'''
+# Write new page ranks to a file v1 --> Locally or Hdfs?
+
+for k in sorted(new_pageranks):
+	v = new_pageranks[k]
+	k = k.strip('\'')
+	print(k,v,sep=",")
+'''
 for k, v in new_pageranks.items():
 	k = k.strip('\'')
 	print(k,v, sep=",")
+'''
