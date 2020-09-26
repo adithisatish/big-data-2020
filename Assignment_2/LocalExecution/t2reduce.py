@@ -30,4 +30,5 @@ new_pageranks[curr_dest] = page_rank
 
 # Write new page ranks to a file v1 --> Locally or Hdfs?	
 for k, v in new_pageranks.items():
+	k = k.strip('\'')
 	print(k,v, sep=",")
