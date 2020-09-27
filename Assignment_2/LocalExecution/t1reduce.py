@@ -7,11 +7,10 @@
 
 import sys
 import os
-from subprocess import Popen, PIPE
 
 curr_key = None
-keys = set()									# Holds ALL nodes. Usage of set to handle addition into set better.
-values = []
+keys = set()						# Set to hold all the source nodes.
+values = []						# Holds destination set for a particular source node. [d1, d2, d3..]
 
 for line in sys.stdin:
 	line = line.strip()
@@ -20,26 +19,23 @@ for line in sys.stdin:
 	except:
 		print("Line: ", line)
 		
-	if curr_key == key:
+	if curr_key == key:				# Reading a source that's been encountered
 		values.append(value)
-		keys.add(value)						# The key has already been added. Add value to keys.
-	else:
+
+	else:						# Reading a new source
 		keys.add(key)
-		keys.add(value)					
 		if curr_key:
 			print(curr_key, values, sep = "\t")
 		curr_key = key
 		values = [value]
 
-print(curr_key, values, sep = "\t")						# For the last node.
-
-# I don't think the following adds are necessary.
-keys.add(curr_key)
-for i in values:
-	keys.add(i)
+print(curr_key, values, sep = "\t")				# For the last node.
 
 
-fileName = sys.argv[1]										# Write the initial page ranks into a local fi
+keys.add(curr_key)						# Is this needed? A set anyway, but anything new?
+
+
+fileName = sys.argv[1]						# Write the initial page ranks into a local file
 f = open(fileName, "w")
 for i in sorted(keys):
 	f.write(str(i) + "," + str(1) + "\n")

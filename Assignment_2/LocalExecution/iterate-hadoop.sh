@@ -1,5 +1,6 @@
 #!/bin/sh
 CONVERGE=1
+ITER=1
 rm v* log*
 
 bin/hadoop dfsadmin -safemode leave
@@ -14,6 +15,7 @@ bin/hadoop jar /home/manah/Hadoop/share/hadoop/tools/lib/hadoop-streaming-3.2.1.
 
 while [ "$CONVERGE" -ne 0 ]
 do
+	echo "################################ $ITER ########################################"
 	bin/hadoop jar /home/manah/Hadoop/share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
 	-mapper "/home/manah/BD/A2/t2map.py '/home/manah/BD/A2/v' " \
 	-reducer "/home/manah/BD/A2/t2reduce.py " \
@@ -21,7 +23,8 @@ do
 	-output /Output/output2
 	touch v1
 	bin/hadoop fs -cat /Output/output2/* > /home/manah/BD/A2/v1
-	CONVERGE=$(python3 check_conv.py >&1)
+	CONVERGE=$(python3 check_conv.py $ITER>&1)
+	ITER=$((ITER+1))
 	bin/hdfs dfs -rm -r /Output/output2
 	echo $CONVERGE
 
