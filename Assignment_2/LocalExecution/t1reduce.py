@@ -10,7 +10,7 @@ import os
 from subprocess import Popen, PIPE
 
 curr_key = None
-keys = set()
+keys = set()									# Holds ALL nodes. Usage of set to handle addition into set better.
 values = []
 
 for line in sys.stdin:
@@ -22,16 +22,17 @@ for line in sys.stdin:
 		
 	if curr_key == key:
 		values.append(value)
-		keys.add(value)
+		keys.add(value)						# The key has already been added. Add value to keys.
 	else:
 		keys.add(key)
-		keys.add(value)						# EXTRA
+		keys.add(value)					
 		if curr_key:
 			print(curr_key, values, sep = "\t")
 		curr_key = key
 		values = [value]
 
 print(curr_key, values, sep = "\t")						# For the last node.
+
 # I don't think the following adds are necessary.
 keys.add(curr_key)
 for i in values:
