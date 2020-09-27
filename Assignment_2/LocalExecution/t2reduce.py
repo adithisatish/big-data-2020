@@ -29,4 +29,4 @@ new_pageranks[curr_dest] = page_rank
 for k in sorted(new_pageranks):
 	v = new_pageranks[k]
 	k = k.strip('\'')		# Not needed again?
-	print(k,v,sep=",")
+	print(k,'%.5f'%v,sep=",")
