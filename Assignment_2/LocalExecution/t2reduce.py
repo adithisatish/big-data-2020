@@ -17,7 +17,7 @@ for line in sys.stdin:
 		sum_contributions += float(cont)
 	else:
 		if curr_dest:
-			page_rank = 0.15 + 0.85*sum_contributions	# No incoming edges -> sum is 0 -> page_rank = 0.15
+			page_rank = 0.85*sum_contributions + 0.15	# No incoming edges -> sum is 0 -> page_rank = 0.15
 			new_pageranks[curr_dest] = page_rank
 		curr_dest = dest
 		sum_contributions = float(cont)
