@@ -16,8 +16,8 @@ dataset2 = spark.read.csv(pathDataset2)
 
 wordmatch = dataset1.filter(dataset1['word']==searchWord)
 
-recStrokes = wordmatch.filter(wordmatch['recognized'] == 'TRUE').agg({"Total_Strokes":"avg"})
-unrecStrokes = wordmatch.filter(wordmatch['recognized']=='FALSE').agg({"Total_Strokes":"avg"})
+avgStrokes = wordmatch.groupBy('recognized').agg({"Total_Strokes":'avg'}).collect()
 
-
-
+for i in avgStrokes:
+    print(i.avg) # Donno if the attribute name is avg or Total_Strokes ( it's avg as per SQL format )
+    # print(i.Total_Strokes)
