@@ -16,8 +16,10 @@ shapeStat = spark.read.csv(pathDataset2)
 
 wordmatch = shapeStat.filter(shapeStat['word']==searchWord)
 
-avgStrokes = wordmatch.groupBy('recognized').agg({"Total_Strokes":'avg'}).collect()
+# I think this is a copartitioned join, unsure how to change it to non-copartitioned
+joinedDF = wordmatch.join(shape,wordmatch['key_id']==shape['key_id'],how='inner')
 
-for i in avgStrokes:
-    print(i.avg) # Donno if the attribute name is avg or Total_Strokes ( it's avg as per SQL format )
-    # print(i.Total_Strokes)
+countByCountry = joinedDF.groupBy('countrycode').agg({'Total_Strokes':'count'}).collect()
+
+for i in countByCountry:
+    print(i.countrycode,i.count,sep=',')
