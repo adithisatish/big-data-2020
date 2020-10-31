@@ -21,3 +21,8 @@ avgStrokes = wordmatch.groupBy('_c2').agg({"_c4":'avg'}).collect()
 for i in avgStrokes:
     print(i[1]) 
     #print(i.Total_Strokes)
+
+# Output for 'alarm clock'
+# 11.916666...
+# 8.26737...
+
