@@ -25,3 +25,11 @@ joinedDF = wordmatch.join(shape,wordmatch['_c0']==shape['_c0'],how='inner').grou
 
 for i in joinedDF:
     print(i[0],i[1],sep=',')
+
+'''    
+Changes from Task-2.py
+1. Total_Strokes for each rows less than k
+2. Column names changed to (_c0, _c1, ..). Not sure if this is just my system.
+3. Had to combine 2 statements to account for 'Ambiguous column names' error.
+4. print(i[0],i[1])
+'''
