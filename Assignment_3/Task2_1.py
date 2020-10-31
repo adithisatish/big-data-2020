@@ -12,76 +12,68 @@ pathDataset2 = sys.argv[4]
 spark = SparkSession.builder.master("local").appName("A3T1").config(conf=SparkConf()).getOrCreate()
 # sc = SparkContext(master='local',appName='A3T1')
 
-shape = spark.read.csv(pathDataset1)
-shapeStat = spark.read.csv(pathDataset2)
+shape = spark.read.option('header',True).csv(pathDataset1)
+shapeStat = spark.read.option('header',True).csv(pathDataset2)
 
-wordmatch1 = shapeStat.filter(shapeStat['_c0']==searchWord)
-wordmatch = wordmatch1.filter(wordmatch1['_c4']<k)
+wordmatch1 = shapeStat.filter(shapeStat['word']==searchWord)
+wordmatch = wordmatch1.filter(wordmatch1['Total_Strokes']<k)
 
 # I think this is a copartitioned join, unsure how to change it to non-copartitioned
-joinedDF = wordmatch.join(shape,wordmatch['_c0']==shape['_c0'],how='inner').groupBy(shape['_c1']).agg({'_c4':'count'}).collect()
+joinedDF = wordmatch.join(shape,wordmatch['word']==shape['word'],how='inner').groupBy(shape['countrycode']).agg({'Total_Strokes':'count'}).collect()
 
 #countByCountry = joinedDF.groupBy('_c0').agg({'_c4':'count'}).collect()
 
 for i in joinedDF:
-    print(i[0],i[1],sep=',')
-
-'''    
-Changes from Task-2.py
-1. Total_Strokes for each rows less than k
-2. Column names changed to (_c0, _c1, ..). Not sure if this is just my system.
-3. Had to combine 2 statements to account for 'Ambiguous column names' error.
-4. print(i[0],i[1])
+    print(i[0],"%.5f"%i[1],sep=',')
+    
 '''
-
-'''
-Output for word 'Alarm Clock' and Total-Strokes 5
-FI,78
-UA,78
-RO,312
-PL,78
-ZZ,156
-EE,78
-RU,390
-IQ,78
-HR,78
-CZ,468
-NP,78
-PT,78
-HK,78
-TW,156
-ID,234
-AU,468
-SA,312
-CA,624
-GB,1248
-BR,156
-DE,936
-IL,234
-TR,156
-ZA,156
-CR,78
-KR,78
-US,5850
-RS,78
-FR,156
-CH,78
-GR,78
-DJ,78
-BA,78
-SE,78
-PH,390
-GE,156
-SK,78
-TH,234
-HU,312
-KW,78
-IE,234
-BE,156
-KH,78
-NO,156
-AR,78
-PR,78
-VN,78
-IS,78
+Ouput for 'alarm clock' and 5
+FI,78.00000
+UA,78.00000
+RO,312.00000
+PL,78.00000
+ZZ,156.00000
+EE,78.00000
+RU,390.00000
+IQ,78.00000
+HR,78.00000
+CZ,468.00000
+NP,78.00000
+PT,78.00000
+HK,78.00000
+TW,156.00000
+ID,234.00000
+AU,468.00000
+SA,312.00000
+CA,624.00000
+GB,1248.00000
+BR,156.00000
+DE,936.00000
+IL,234.00000
+TR,156.00000
+ZA,156.00000
+CR,78.00000
+KR,78.00000
+US,5850.00000
+RS,78.00000
+FR,156.00000
+CH,78.00000
+GR,78.00000
+DJ,78.00000
+BA,78.00000
+SE,78.00000
+PH,390.00000
+GE,156.00000
+SK,78.00000
+TH,234.00000
+HU,312.00000
+KW,78.00000
+IE,234.00000
+BE,156.00000
+KH,78.00000
+NO,156.00000
+AR,78.00000
+PR,78.00000
+VN,78.00000
+IS,78.00000
 '''
