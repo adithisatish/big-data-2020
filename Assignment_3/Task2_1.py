@@ -1,0 +1,87 @@
+#!usr/bin/python3
+
+import sys
+from pyspark import SparkContext,SparkConf
+from pyspark.sql import SparkSession
+
+searchWord = sys.argv[1]
+k = sys.argv[2]
+pathDataset1 = sys.argv[3]
+pathDataset2 = sys.argv[4]
+
+spark = SparkSession.builder.master("local").appName("A3T1").config(conf=SparkConf()).getOrCreate()
+# sc = SparkContext(master='local',appName='A3T1')
+
+shape = spark.read.csv(pathDataset1)
+shapeStat = spark.read.csv(pathDataset2)
+
+wordmatch1 = shapeStat.filter(shapeStat['_c0']==searchWord)
+wordmatch = wordmatch1.filter(wordmatch1['_c4']<k)
+
+# I think this is a copartitioned join, unsure how to change it to non-copartitioned
+joinedDF = wordmatch.join(shape,wordmatch['_c0']==shape['_c0'],how='inner').groupBy(shape['_c1']).agg({'_c4':'count'}).collect()
+
+#countByCountry = joinedDF.groupBy('_c0').agg({'_c4':'count'}).collect()
+
+for i in joinedDF:
+    print(i[0],i[1],sep=',')
+
+'''    
+Changes from Task-2.py
+1. Total_Strokes for each rows less than k
+2. Column names changed to (_c0, _c1, ..). Not sure if this is just my system.
+3. Had to combine 2 statements to account for 'Ambiguous column names' error.
+4. print(i[0],i[1])
+'''
+
+'''
+Output for word 'Alarm Clock' and Total-Strokes 5
+FI,78
+UA,78
+RO,312
+PL,78
+ZZ,156
+EE,78
+RU,390
+IQ,78
+HR,78
+CZ,468
+NP,78
+PT,78
+HK,78
+TW,156
+ID,234
+AU,468
+SA,312
+CA,624
+GB,1248
+BR,156
+DE,936
+IL,234
+TR,156
+ZA,156
+CR,78
+KR,78
+US,5850
+RS,78
+FR,156
+CH,78
+GR,78
+DJ,78
+BA,78
+SE,78
+PH,390
+GE,156
+SK,78
+TH,234
+HU,312
+KW,78
+IE,234
+BE,156
+KH,78
+NO,156
+AR,78
+PR,78
+VN,78
+IS,78
+'''
