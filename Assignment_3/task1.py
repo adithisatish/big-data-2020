@@ -12,7 +12,7 @@ spark = SparkSession.builder.master("local").appName("A3T1").config(conf=SparkCo
 # sc = SparkContext(master='local',appName='A3T1')
 
 shape = spark.read.csv(pathDataset1)
-shapeStat = spark.read.csv(pathDataset2)
+shapeStat = spark.read.option('header',True).csv(pathDataset2)
 
 wordmatch = shapeStat.filter(shapeStat['word']==searchWord)
 
