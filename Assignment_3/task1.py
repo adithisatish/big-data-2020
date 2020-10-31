@@ -19,5 +19,5 @@ wordmatch = shapeStat.filter(shapeStat['word']==searchWord)
 avgStrokes = wordmatch.groupBy('recognized').agg({"Total_Strokes":'avg'}).collect()
 
 for i in avgStrokes:
-    print(i.avg) # Donno if the attribute name is avg or Total_Strokes ( it's avg as per SQL format )
+    print("%.5f" %i.avg) # Donno if the attribute name is avg or Total_Strokes ( it's avg as per SQL format )
     # print(i.Total_Strokes)

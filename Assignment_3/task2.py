@@ -22,4 +22,4 @@ joinedDF = wordmatch.join(shape,wordmatch['key_id']==shape['key_id'],how='inner'
 countByCountry = joinedDF.groupBy('countrycode').agg({'Total_Strokes':'count'}).collect()
 
 for i in countByCountry:
-    print(i.countrycode,i.count,sep=',')
+    print(i.countrycode,"%.5f"%i.count,sep=',')
