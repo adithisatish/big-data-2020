@@ -19,5 +19,10 @@ wordmatch = shapeStat.filter(shapeStat['word']==searchWord)
 avgStrokes = wordmatch.groupBy('recognized').agg({"Total_Strokes":'avg'}).collect()
 
 for i in avgStrokes:
-    print("%.5f" %i.avg) # Donno if the attribute name is avg or Total_Strokes ( it's avg as per SQL format )
-    # print(i.Total_Strokes)
+    print("%.5f" %i[1])
+    
+'''
+Output for 'alarm clock'
+11.91667
+8.26738
+'''    
