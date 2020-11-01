@@ -17,14 +17,20 @@ shapeStat = spark.read.option('header',True).csv(pathDataset2)
 
 wordmatch1 = shapeStat.filter(shapeStat['word']==searchWord)
 wordmatch = wordmatch1.filter(wordmatch1['Total_Strokes']<k)
+wordmatch = wordmatch.filter(wordmatch['recognized']==False) # Check if False works or it is 'FALSE' i.e as string and in caps
 
-# I think this is a copartitioned join, unsure how to change it to non-copartitioned
-joinedDF = wordmatch.join(shape,wordmatch['word']==shape['word'],how='inner').groupBy(shape['countrycode']).agg({'Total_Strokes':'count'}).collect()
+if wordmatch.collect() != None: # The word was found and there exist records where it is unrecognized and the total strokes of the word is lesser than k
+    
+    # Non-Copartitioned Join
+    joinedDF = wordmatch.join(shape,wordmatch['word']==shape['word'],how='inner').groupBy(shape['countrycode']).agg({'Total_Strokes':'count'}).orderBy(shape['countrycode']).collect()
 
-#countByCountry = joinedDF.groupBy('countrycode').agg({'Total_Strokes':'count'}).collect()
+    #countByCountry = joinedDF.groupBy('countrycode').agg({'Total_Strokes':'count'}).collect()
 
-for i in joinedDF:
-    print(i[0],"%.5f"%i[1],sep=',')
+    for i in joinedDF:
+        print(i[0],"%.5f"%i[1],sep=',')
+
+else: # What is to be done if any of the conditions fail? I've just printed zero for now
+    print(0.00000)
 
 '''
 Ouput for 'alarm clock' and 5
