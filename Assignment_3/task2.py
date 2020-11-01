@@ -5,7 +5,7 @@ from pyspark import SparkContext,SparkConf
 from pyspark.sql import SparkSession
 
 searchWord = sys.argv[1]
-k = sys.argv[2]
+k = sys.argv[2] # Shouldn't this be converted to int?
 pathDataset1 = sys.argv[3]
 pathDataset2 = sys.argv[4]
 
