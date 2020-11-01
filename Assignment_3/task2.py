@@ -9,7 +9,7 @@ k = sys.argv[2]
 pathDataset1 = sys.argv[3]
 pathDataset2 = sys.argv[4]
 
-spark = SparkSession.builder.master("local").appName("A3T1").config(conf=SparkConf()).getOrCreate()
+spark = SparkSession.builder.master("local").appName("A3T2").config(conf=SparkConf()).getOrCreate()
 # sc = SparkContext(master='local',appName='A3T1')
 
 shape = spark.read.option('header',True).csv(pathDataset1)
