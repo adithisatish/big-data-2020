@@ -21,8 +21,8 @@ wordmatch = wordmatch.filter(wordmatch['recognized']==False) # Check if False wo
 
 if wordmatch.collect() != None: # The word was found and there exist records where it is unrecognized and the total strokes of the word is lesser than k
     
-    # Non-Copartitioned Join
-    joinedDF = wordmatch.join(shape,wordmatch['word']==shape['word'],how='inner').groupBy(shape['countrycode']).agg({'Total_Strokes':'count'}).orderBy(shape['countrycode']).collect()
+    # Non-Copartitioned Join - has to be performed on both word and key_id to avoid repeating columns
+    joinedDF = wordmatch.join(shape,on=['key_id','word'],how='inner').groupBy(shape['countrycode']).agg({'Total_Strokes':'count'}).orderBy(shape['countrycode']).collect()
 
     #countByCountry = joinedDF.groupBy('countrycode').agg({'Total_Strokes':'count'}).collect()
 
