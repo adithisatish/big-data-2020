@@ -17,18 +17,18 @@ shapeStat = spark.read.option('header',True).csv(pathDataset2)
 
 wordmatch1 = shapeStat.filter(shapeStat['word']==searchWord)
 wordmatch = wordmatch1.filter(wordmatch1['Total_Strokes']<k)
-wordmatch = wordmatch.filter(wordmatch['recognized']=='FALSE') 
+wordmatch = wordmatch.filter(wordmatch['recognized']==False) 
 
 if len(wordmatch.collect()) != 0: # The word was found and there exist records where it is unrecognized and the total strokes of the word is lesser than k
     
-    # Non-Copartitioned Join - has to be performed on both word and key_id to avoid repeating columns
+    # Non-Copartitioned Join - has to be performed on both word and key_id to avoid repeating data
     joinedDF = wordmatch.join(shape,on=['key_id','word'],how='inner').groupBy(shape['countrycode']).count().orderBy(shape['countrycode']).collect()
 
     for i in joinedDF:
         print(i[0],i[1],sep=',')
 
-# else: # What is to be done if any of the conditions fail? I've just printed zero for now
-#     print()
+else: # What is to be done if any of the conditions fail? I've just printed zero for now
+    print(0)
 
 '''
 Ouput for 'alarm clock' and 5

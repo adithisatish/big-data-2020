@@ -29,7 +29,7 @@ else:
     else:
         if len(avgStrokes)==1: # Either recognized or unrecognized found
 
-            if avgStrokes[0][0] == 'TRUE': # No unrecognized found - print zero, check if True works or it's 'TRUE' i.e all caps and string
+            if avgStrokes[0][0] == True: # No unrecognized found - print zero, check if True works or it's 'TRUE' i.e all caps and string
                 print("%.5f"%avgStrokes[0][1])
                 print("%.5f" %0.00000)
             else: # No recognized found
