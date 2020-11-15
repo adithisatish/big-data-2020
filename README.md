@@ -5,3 +5,9 @@
 #### Assignment 3: Analysis of QuickDraw images using Spark
 
 Implemented in Python
+
+### Authors
+- Adithi Satish
+- Manah Shetty
+- Saurav Nayak
+- Shreya Shukla
