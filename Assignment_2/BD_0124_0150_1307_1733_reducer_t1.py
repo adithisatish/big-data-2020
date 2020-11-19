@@ -32,7 +32,7 @@ for line in sys.stdin:
 print(curr_key, values, sep = "\t")				# For the last node.
 
 
-keys.add(curr_key)						# Is this needed? A set anyway, but anything new?
+keys.add(curr_key)	
 
 
 fileName = sys.argv[1]						# Write the initial page ranks into a local file
