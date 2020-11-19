@@ -1,6 +1,5 @@
 #!usr/bin/python3
 
-from __future__ import print_function
 import sys
 from pyspark import SparkContext,SparkConf
 from pyspark.sql import SparkSession
