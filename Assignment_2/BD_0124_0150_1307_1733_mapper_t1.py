@@ -5,7 +5,7 @@
 import sys
 
 for line in sys.stdin:
-	if(line[0] == '#'):					# To ignore the first few commented junk lines. Different for a different dataset?
+	if(line[0] == '#'):					# To ignore the first few commented junk lines, which were present in the Stanford sample data
 		continue
 	try:
 		line = line.strip()

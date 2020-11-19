@@ -7,7 +7,7 @@ import sys
 
 #Mapper reads input from "adj_list" and "v" and for each node i, it emits key, value pairs.
 
-fileName = sys.argv[1]
+fileName = sys.argv[1] # Path to v
 with open(fileName) as f:				# Read v
 	initial_page_ranks = f.read()
 ipr = initial_page_ranks.split("\n")
@@ -24,7 +24,8 @@ for line in sys.stdin:
 	try:
 		line = line.strip()
 		source, destination = line.split("\t", 1)
-		destination = destination.replace('[','').replace(']','').split(', ')
+		destination = destination.replace('[','').replace(']','').split(', ') 
+		# Example: string "['1', '2', '3', '4']" is preprocessed to become list containing elements '1','2','3' and '4'
 		contribution = float(v[source])/len(destination)	# p_r of node/ no_of_outgoing_links
 	
 	except:
@@ -37,6 +38,8 @@ for line in sys.stdin:
 			nodes[d] = True				# Add to dict of destination nodes. Can use a set/list instead.
 	
 for node in v:			# If there is a source node (all source nodes have a pagerank)
-	if node not in nodes:	# that was not a destination, and hence wasn't printed to t2reduce,..
-		print(node, 0, sep = '\t')	# The node has outgoing edges, but no incoming edges. Contribution is 0. Page rank should ultimatekly be 1. -> 0.15 + 0.85*0 = 0.15
+	if node not in nodes:	# that was not a destination, and hence wasn't printed to t2reduce in the above for loop
+		print(node, 0, sep = '\t')	
+		# Only a source, the node has outgoing edges, but no incoming edges. Contribution is 0. 
+		# Page rank should ultimatekly be 1. -> 0.15 + 0.85*0 = 0.15
 

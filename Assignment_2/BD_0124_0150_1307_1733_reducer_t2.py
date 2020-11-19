@@ -22,11 +22,12 @@ for line in sys.stdin:
 		curr_dest = dest
 		sum_contributions = float(cont)
 		
+# For the last node:
 page_rank = 0.85*(sum_contributions) + 0.15
 new_pageranks[curr_dest] = page_rank
 
 
 for k in sorted(new_pageranks):
 	v = round(new_pageranks[k], 5)
-	k = k.strip('\'')		# Not needed again?
+	k = k.strip('\'')		# Precautionary measure
 	print(k,'%.5f'%v,sep=", ")
